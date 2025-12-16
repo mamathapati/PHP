@@ -17,4 +17,15 @@ spec:
           image: mamathapati/clientapp:dbimage
           ports:
             - containerPort: 3306
+          VolumeMounts:
+           - name : myvolume
+             mountpaths: /var/lib/mysql 
+ volumeClaimTemplates:
+  - metadata:
+      name: myvolume
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 1Gi
 
