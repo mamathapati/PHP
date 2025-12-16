@@ -1,28 +1,29 @@
 apiVersion: apps/v1
-kind: Statefulset
+kind: StatefulSet
 metadata:
-  name: mysqldb
+  name: mysqldb
 spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: mysqldb
-  template:
-    metadata:
-      labels:
-        app: mysqldb
-    spec:
-      containers:
-        - name: mysqldb
-          image: mamathapati/clientapp:dbimage
-          ports:
-            - containerPort: 3306
-          VolumeMounts:
-           - name : myvolume
-             mountpaths: /var/lib/mysql 
-     imagePullSecrets:
-            - name: mysecret
- volumeClaimTemplates:
+  serviceName: mysqldb
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysqldb
+  template:
+    metadata:
+      labels:
+        app: mysqldb
+    spec:
+      imagePullSecrets:
+      - name: mysecret
+      containers:
+      - name: mysqldb
+        image: mamathapati/clientapp:dbimage
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - name: myvolume
+          mountPath: /var/lib/mysql
+  volumeClaimTemplates:
   - metadata:
       name: myvolume
     spec:
@@ -30,4 +31,5 @@ spec:
       resources:
         requests:
           storage: 1Gi
+
 
