@@ -12,13 +12,13 @@ spec:
       labels:
         app: appcont
     spec:
+      imagePullSecrets:
+      - name: mysecret
       containers:
       - name: appcont
         image: mamathapati/clientapp:appimage
-        ports: 
+        ports:
         - containerPort: 80
         env:
-         - name: DB_HOST
-           value: mysqldb
-      imagePullSecrets:
-            - name: mysecret
+        - name: DB_HOST
+          value: mysqldb
