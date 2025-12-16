@@ -16,4 +16,7 @@ spec:
       - name: appcont
         image: mamathapati/clientapp:appimage
         ports: 
-        - containerPort: 1234
+        - containerPort: 80
+        env:
+         - name: DB_HOST
+           value: mysqldb
