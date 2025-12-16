@@ -20,6 +20,8 @@ spec:
           VolumeMounts:
            - name : myvolume
              mountpaths: /var/lib/mysql 
+     imagePullSecrets:
+            - name: mysecret
  volumeClaimTemplates:
   - metadata:
       name: myvolume
