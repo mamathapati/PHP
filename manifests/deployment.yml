@@ -1,1 +1,19 @@
-
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appcont
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: appcont
+  template:
+    metadata:
+      labels:
+        app: appcont
+    spec:
+      containers:
+      - name: appcont
+        image: mamathapati/clientapp:appimage
+        ports: 
+        - containerPort: 1234
