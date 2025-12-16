@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: appservice
 spec:
- ClusterIp: None
+ clusterIp: None
  selector:
   app: appcont
  ports:
