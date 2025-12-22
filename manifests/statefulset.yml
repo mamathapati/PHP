@@ -1,40 +1,34 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: mysqldb
+  name: mysql
 spec:
-  serviceName: mysqldb
+  serviceName: "mysql"
   replicas: 1
   selector:
     matchLabels:
-      app: mysqldb
+      app: app-database
   template:
     metadata:
       labels:
-        app: mysqldb
+        app: app-database
     spec:
-      imagePullSecrets:
-      - name: mysecret
       containers:
-      - name: mysqldb
-        image: mamathapati/mysql-custom:latest
+      - name: nginx
+        image: mamathapati/clientapp:dbimage
         ports:
-        - containerPort: 3306
-        env:
-        - name: MYSQL_ROOT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mysql-secret
-              key: password
+        - containerPort: 80
+          name: web
         volumeMounts:
-        - name: myvolume
-          mountPath: /var/lib/mysql
+        - name: www
+          mountPath: /usr/share/nginx/html
+      imagePullSecrets:
+            - name: dockerhub-secret
   volumeClaimTemplates:
   - metadata:
-      name: myvolume
+      name: www
     spec:
-      accessModes: ["ReadWriteOnce"]
+      accessModes: [ "ReadWriteOnce" ]
       resources:
         requests:
           storage: 1Gi
-
