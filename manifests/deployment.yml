@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: mysqldb
-        image: mamathapati/myfirstrepo:zomato
+        image: mamathapati/clientapp:appimage
         ports:
         - containerPort: 80
         env:
