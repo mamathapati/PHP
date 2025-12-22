@@ -17,9 +17,15 @@ spec:
       - name: mysecret
       containers:
       - name: mysqldb
-        image: mamathapati/clientapp:dbimage
+        image: mamathapati/mysql-custom:latest
         ports:
         - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: password
         volumeMounts:
         - name: myvolume
           mountPath: /var/lib/mysql
@@ -31,5 +37,4 @@ spec:
       resources:
         requests:
           storage: 1Gi
-
 
